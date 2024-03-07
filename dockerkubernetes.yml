@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetesdeploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubernetesdeploy
+  template:
+    metadata:
+      labels:
+        app: kubernetesdeploy
+    spec:
+      containers:
+        - name: kubernetesdeploy
+          image: sairam8008/dockerkubernetesdeploy
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetesdeploy
+spec:
+  selector:
+    app: kubernetesdeploy
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
